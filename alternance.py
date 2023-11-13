@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
+
+
+
 # Fonction pour extraire la sous-chaîne indiquant s'il s'agit d'un programme en "Alternance"
 def alternance_str(string):
     substring = "Alternance"
@@ -12,6 +15,11 @@ def alternance_str(string):
     end_index = start_index + len("Oui")
 
     return string[start_index:end_index]
+
+
+
+
+
 
 # Fonction pour extraire les données de l'URL fournie et créer un DataFrame
 def get_alternance(url):
@@ -47,12 +55,16 @@ def get_alternance(url):
             alternance = alternance_str(hidden_text)
 
             # Création d'une entrée de dictionnaire avec les informations extraites
-            entry = {"nom": nom_recup.get_text(strip=True), "alternance": alternance}
+            entry = {"Nom de l'école": nom_recup.get_text(strip=True), "Alternance": alternance}
             data.append(entry)
 
     # Création d'un DataFrame pandas à partir de la liste de dictionnaires
     df = pd.DataFrame(data)
     return df
+
+
+
+
 
 # Fonction pour itérer à travers plusieurs pages et concaténer les DataFrames
 def set_alternance():

@@ -2,6 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
+
+
+
+
 # Fonction pour extraire le statut (public ou privé) à partir d'une chaîne de caractères
 def statut_str(string):
     substring = "Public"
@@ -12,6 +16,10 @@ def statut_str(string):
     end_index = string.find(duree)
 
     return string[start_index:end_index]
+
+
+
+
 
 # Fonction pour extraire les données de statut d'une école à partir d'une URL
 def get_statut(url):
@@ -44,13 +52,17 @@ def get_statut(url):
         # Vérification si les deux éléments 'td' sont trouvés
         if nom_recup and statut:
             # Création d'une entrée de dictionnaire avec les informations extraites
-            entry = {"nom": nom_recup.get_text(strip=True),  "public/privé": statut}
+            entry = {"Nom de l'école": nom_recup.get_text(strip=True),  "Public/Privé": statut}
             data.append(entry)
 
     # Création d'un DataFrame pandas à partir de la liste de dictionnaires
     df = pd.DataFrame(data)
 
     return df
+
+
+
+
 
 # Fonction pour itérer à travers plusieurs pages et concaténer les DataFrames de statut
 def set_statut():

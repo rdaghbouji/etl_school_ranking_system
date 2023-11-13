@@ -7,6 +7,7 @@ from statut import *
 from spécialité import *  
 from autre import *
 
+
 # Obtention des données de notes de formation
 formation_df = set_note_formation()
 
@@ -29,4 +30,6 @@ spe_df = set_all_spe()
 data = merge(formation_df, reseau_df, international_df, alternance_df, statut_df, spe_df)
 
 # Affichage du DataFrame final
-data.to_excel('db.xlsx')
+data_to_sql (data)
+
+

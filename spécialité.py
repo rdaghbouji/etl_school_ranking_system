@@ -3,6 +3,9 @@ import requests
 import pandas as pd
 from autre import *
 
+
+
+
 # Fonction pour extraire les données d'une spécialité à partir d'une URL et d'un nom de spécialité
 def get_spe(url, nom_spe):
     result = requests.get(url)
@@ -24,13 +27,17 @@ def get_spe(url, nom_spe):
             # Vérification si l'élément 'td' est trouvé
             if nom_recup:
                 # Création d'une entrée de dictionnaire avec les informations extraites
-                entry = {"nom": nom_recup.get_text(strip=True), "spe": nom_spe}
+                entry = {"Nom de l'école": nom_recup.get_text(strip=True), "Spécialité": nom_spe}
                 data.append(entry)
 
         # Création d'un DataFrame pandas à partir de la liste de dictionnaires
         df = pd.DataFrame(data)
 
         return df
+
+
+
+
 
 # Fonction pour itérer à travers plusieurs pages et concaténer les DataFrames de spécialités
 def set_spe(url, nom_spe):
@@ -45,6 +52,11 @@ def set_spe(url, nom_spe):
 
     # Retour du DataFrame final concaténé
     return page
+
+
+
+
+
 
 # Fonction pour obtenir les données de toutes les spécialités
 def set_all_spe():
@@ -62,6 +74,6 @@ def set_all_spe():
     merged_df = pd.concat([spe1_df, spe2_df, spe3_df], ignore_index=True)
 
     # Agrégation des spécialités par nom d'école avec la fonction custom_agg
-    result = merged_df.groupby("nom")["spe"].agg(custom_agg)
+    result = merged_df.groupby("Nom de l'école")["Spécialité"].agg(custom_agg)
 
     return result
