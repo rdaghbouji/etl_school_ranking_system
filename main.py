@@ -6,6 +6,7 @@ from alternance import *
 from statut import *
 from spécialité import *  
 from autre import *
+from calcul import *
 
 
 # Obtention des données de notes de formation
@@ -29,7 +30,16 @@ spe_df = set_all_spe()
 # Fusion de tous les DataFrames obtenus
 data = merge(formation_df, reseau_df, international_df, alternance_df, statut_df, spe_df)
 
-# Affichage du DataFrame final
+# Utiliser la fonction calc pour obtenir les résultats
+result_notes = calc(data)
+
+# Ajouter une nouvelle colonne "note" à votre DataFrame
+data['Note'] = result_notes
+
 data_to_sql (data)
+
+
+
+
 
 

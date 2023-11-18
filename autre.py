@@ -39,5 +39,6 @@ def data_to_sql (data):
     # Read the updated data from the database
     df_from_db = pd.read_sql('tab', con=engine)
 
-    # Display the updated DataFrame
-    print(df_from_db)
+
+
+
