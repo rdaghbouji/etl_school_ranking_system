@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+from config_graphique import choix_des_spes
 from autre import *
 
 
@@ -54,26 +55,27 @@ def set_spe(url, nom_spe):
     return page
 
 
+def get_url (spe) :
+    url = "https://www.letudiant.fr/classements/classement-des-ecoles-d-ingenieurs.html?filters[677]="
+    url_spe = f"{url}{spe}"
+    return url_spe
 
 
+def set_all_spe (): 
 
+    spes_choisies = choix_des_spes ()
 
-# Fonction pour obtenir les données de toutes les spécialités
-def set_all_spe():
-    # URL pour différentes spécialités
-    url1 = "https://www.letudiant.fr/classements/classement-des-ecoles-d-ingenieurs.html?filters[677]=Informatique"
-    url2 = "https://www.letudiant.fr/classements/classement-des-ecoles-d-ingenieurs.html?filters%5B677%5D=Logiciels"
-    url3 = "https://www.letudiant.fr/classements/classement-des-ecoles-d-ingenieurs.html?filters%5B677%5D=Ing%C3%A9nierie%20des%20syst%C3%A8mes%20d%27informations"
+    for index, spe in enumerate(spes_choisies):
+        url = get_url (spe)
+        spe_df = set_spe (url, spe)
+        if index == 0 :
+            merged_df = spe_df
+        else : 
+            df = spe_df
+            merged_df = pd.concat([merged_df, df], ignore_index=True)
 
-    # Obtention des données pour chaque spécialité
-    spe1_df = set_spe(url1, "informatique")
-    spe2_df = set_spe(url2, "logiciel")
-    spe3_df = set_spe(url3, "ing des sys d'informations")
+# probleme spes_choisies = [] à résoudre
 
-    # Concaténation des DataFrames de spécialités
-    merged_df = pd.concat([spe1_df, spe2_df, spe3_df], ignore_index=True)
-
-    # Agrégation des spécialités par nom d'école avec la fonction custom_agg
     result = merged_df.groupby("Nom de l'école")["Spécialité"].agg(custom_agg)
 
     return result

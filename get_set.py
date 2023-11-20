@@ -5,9 +5,9 @@ import pandas as pd
 
 
 
+
 # Fonction pour extraire les notes à partir de l'URL fournie
 def get(url, critere):
-
     # Envoi d'une requête HTTP GET à l'URL spécifiée
     result = requests.get(url)
     
@@ -34,7 +34,7 @@ def get(url, critere):
         # Vérification si les deux éléments 'td' sont trouvés
         if name and note:
             # Création d'une entrée de dictionnaire avec les informations extraites
-            entry = {"Nom de l'école": name.get_text(strip=True), critere : note.get_text(strip=True)}
+            entry = {"Nom de l'école": name.get_text(strip=True), critere: note.get_text(strip=True)}
             data.append(entry)
 
     # Création d'un DataFrame pandas à partir de la liste de dictionnaires
@@ -46,15 +46,18 @@ def get(url, critere):
 
 
 
+
+
+# Fonction pour itérer à travers plusieurs pages et concaténer les DataFrames
 def set(url, critere):
     # Obtention des notes de la première page en utilisant la fonction get
     page = get(url, critere)
 
     # Itération à travers des pages supplémentaires (de 2 à 9) et concaténation des DataFrames
     for i in range(2, 10):
-        new_url = url + "?page=" + str(i)
+        new_url = f"{url}?page={i}"
         new_page = get(new_url, critere)
         page = pd.concat([page, new_page], ignore_index=True)
 
-    # Retour du DataFrame final avec les notes de formation
+    # Retour du DataFrame final avec les notes
     return page

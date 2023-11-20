@@ -28,16 +28,19 @@ def merge(a, b, c, d, e, f):
 
 
 
-def data_to_sql (data):
+
+def data_to_sql(data):
     # Database connection URL
     db_url = 'sqlite:///database.db'
     engine = create_engine(db_url)
 
-    # Update the database table with the new DataFrame
+    # Append the new DataFrame to the existing database table
     data.to_sql('tab', con=engine, index=False, if_exists='replace')
 
     # Read the updated data from the database
     df_from_db = pd.read_sql('tab', con=engine)
+    
+    return df_from_db
 
 
 

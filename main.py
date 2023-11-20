@@ -16,7 +16,7 @@ formation_df = set_note_formation()
 reseau_df = set_note_reseau()
 
 # Obtention des données internationales
-international_df = set_note_international()
+international_df = get_set_international()
 
 # Obtention des données en alternance
 alternance_df = set_alternance()
