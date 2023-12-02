@@ -58,6 +58,7 @@ class CoefficientsWindow:
 
     def run(self):
         self.window.mainloop()
+        
 
 
 
@@ -142,6 +143,6 @@ def choix_des_spes () :
 
 
 def formule (alternance, spe, statut, formation, reseau, international, liste_coeff) :
-    formule = liste_coeff[0] * float(alternance) + liste_coeff[1] * float(spe) + liste_coeff[2] * float(reseau) + liste_coeff[3] * float(formation) + liste_coeff[4] * float(international) + liste_coeff[5] * float(statut)
+    formule = liste_coeff[0] * float(formation) + liste_coeff[1] * float(reseau) + liste_coeff[2] * float(international) + liste_coeff[3] * float(alternance) + liste_coeff[4] * float(statut) + liste_coeff[5] * float(spe)
     return formule
 
